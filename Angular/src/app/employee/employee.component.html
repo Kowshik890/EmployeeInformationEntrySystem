@@ -1,0 +1,90 @@
+<br>
+<div class="container" >
+    <button type="button" class="btn btn-outline-info" (click)="OpenLgEmployee(content1)"><span><i class="fa fa-plus"></i></span>Add Employee</button>
+<h4 style="text-align: center;margin-top: 3%;">Employee List</h4>
+<table class="table table-striped">
+  <thead>
+  <th>Employee ID</th>
+  <th>Employee Name</th>
+  <th>Employee Age</th>
+  <th>Phone Number</th>
+  <th>Update</th>
+  <th>Delete</th>
+  </thead>
+  <tbody>
+  <tr *ngFor = "let i of getAllEmpDataList">
+    <td>{{i.EID}}</td>
+    <td>{{i.NAME}}</td>
+    <td>{{i.AGE}}</td>
+    <td>{{i.PHONE}}</td>
+    <td>
+      <button class="btn btn-outline-primary" (click)="OpenLgEmployeeEidt(content1, i.EID)"><span><i class="fa fa-edit"></i></span> </button>
+    </td>
+    <td>
+        <button type="button" data-toggle="modal" (click)="openDeleteModal(content2, i.EID)"  class="btn btn-outline-danger" aria-label="Left Align">
+        <span  aria-hidden="true"><i class="fa fa-trash"></i></span></button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- Employee Entry Popup Modal -->
+<ng-template #content1 let-modal let-d="dismiss">
+  <form #EmployeeForm = "ngForm" (submit)="EmployeeFunction(EmployeeForm)" (submit)="modal.close('Close click')">
+  <div class="modal-header">
+    <h4 class="modal-title" [hidden]="EditButtonEnable == true">Add Employee</h4>
+    <h4 class="modal-title" [hidden]="EditButtonEnable == false">Update Employee</h4>
+  </div>
+  <div class="modal-body" style="height: 200px;">
+      <div class="form-group">
+        <label style="float: left;">Employee ID:</label>
+        <input readonly class="form-control form-control-sm col-2" style="float: left; margin-left: 5.5%;" name="eid" [(ngModel)]="eid">
+      </div>
+      <br>
+      <div class="form-group">
+        <label style="float: left;">Employee Name:</label>
+        <input type="text" class="form-control form-control-sm col-4" style="float: left; margin-left: 2%;" name="ename" [(ngModel)]="ename">
+      </div>
+      <br>
+      <div class="form-group">
+        <label style="float: left;">Employee Age:</label>
+        <input class="form-control form-control-sm col-2" style="float: left; margin-left: 3.8%;" name="eage" [(ngModel)]="eage">
+      </div>
+      <br>
+      <div class="form-group">
+        <label style="float: left;">Phone Number:</label>
+        <input type="text" class="form-control form-control-sm col-4"  style="float: left; margin-left: 3%;"name="epno" [(ngModel)]="epno">
+      </div>
+  </div>
+  <div class="modal-footer">         
+    <div class="col-md-12">
+        <div class="col-md-6" style="float: left; padding-left: 40%;">
+            <button type="submit" class="btn btn-outline-dark" value="submit">Submit</button>
+        </div>
+        <div class="col-md-6" style="float: left; padding-left: 5%;">
+            <button type="button" class="btn btn-outline-danger" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </div>
+  </div>
+</form>
+</ng-template>
+
+<!-- delete modal -->
+<ng-template #content2 let-modal> 
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Delete Employee Information</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h5 style="color: red; text-align: center"><i class="fa fa-warning" style="font-size:35px;color:red"></i><b>  Do you want to delete this record?</b></h5>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close()">No</button>
+      <button type="button" class="btn btn-outline-danger" (click)="deleteEmployeeInfo()" (click)="modal.close()">Yes</button>
+    </div>
+</ng-template>
+
+     
